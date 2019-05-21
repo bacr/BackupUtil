@@ -1,0 +1,6 @@
+.vs/
+.idea/
+.git/
+**/bin/
+**/obj/
+**/out/
