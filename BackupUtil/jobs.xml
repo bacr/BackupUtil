@@ -9,13 +9,7 @@
       <name>DbBackupJob</name>
       <group>BackupUtil</group>
       <description></description>
-      <job-type>BackupUtil.Jobs.DbBackupJob, BackupUtil</job-type>
-      <job-data-map>
-        <entry>
-          <key>backupType</key>
-          <value>Full</value>
-        </entry>
-      </job-data-map>
+      <job-type>BackupUtil.Jobs.DbBackupJob, BackupUtil</job-type>      
     </job>
 
     <trigger>
@@ -23,19 +17,15 @@
         <name>DbBackupTrigger</name>
         <group>BackupUtil</group>
         <job-name>DbBackupJob</job-name>
-        <job-group>BackupUtil</job-group>        
+        <job-group>BackupUtil</job-group>
+        <job-data-map>
+          <entry>
+            <key>backupType</key>
+            <value>Full</value>
+          </entry>
+        </job-data-map>
         <cron-expression>0 0 0 * * ?</cron-expression>
       </cron>
-    </trigger>
-
-    <trigger>
-      <simple>
-        <name>DbBackupNowTrigger</name>
-        <group>BackupUtil</group>
-        <job-name>DbBackupJob</job-name>
-        <job-group>BackupUtil</job-group>
-        <start-time-seconds-in-future>0</start-time-seconds-in-future>
-      </simple>
     </trigger>
 
   </schedule>

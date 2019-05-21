@@ -28,7 +28,7 @@ namespace BackupUtil.Db
             {
                 extension = "trn";
             }
-            var filename = $"{_settings.Value.Database}-{DateTime.UtcNow:s}-{type}.{extension}";
+            var filename = $"{_settings.Value.Database}-{DateTime.UtcNow:yyyy-MM-dd-HH-mm-ss}-{type}.{extension}";
             var backupPath = $"{_settings.Value.BackupPath}/{filename}";
             var backupName = $"{_settings.Value.Database}-{type}";
             var backupType = "DATABASE";
@@ -50,7 +50,7 @@ namespace BackupUtil.Db
 
         private async Task<int> ExecuteAsync(string sql, params SqlParameter[] sqlParameters)
         {
-            using (var connection = new SqlConnection($"Server={_settings.Value.Server};User Id={_settings.Value.Username};Password={_settings.Value.Password}"))
+            using (var connection = new SqlConnection(_settings.Value.ConnectionString))
             {
                 await connection.OpenAsync();
                 using (var command = new SqlCommand(sql, connection))

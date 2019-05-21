@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using BackupUtil.Db;
 using BackupUtil.Jobs;
+using BackupUtil.Storage;
 using Microsoft.Extensions.Hosting;
 
 namespace BackupUtil.Infrastructure.Autofac
@@ -14,6 +15,7 @@ namespace BackupUtil.Infrastructure.Autofac
 
             builder.RegisterType<DbBackupJob>();
             builder.RegisterType<SqlBackup>().As<IDbBackup>();
+            builder.RegisterType<AzureStorage>().As<IStorage>();
         }
     }
 }

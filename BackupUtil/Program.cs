@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using BackupUtil.Infrastructure;
 using BackupUtil.Db;
+using BackupUtil.Jobs;
+using BackupUtil.Storage;
 
 namespace BackupUtil
 {
@@ -41,6 +43,8 @@ namespace BackupUtil
                 {
                     services.AddOptions();
                     services.Configure<SqlBackupSettings>(hostContext.Configuration.GetSection("SqlBackup"));
+                    services.Configure<AzureStorageSettings>(hostContext.Configuration.GetSection("AzureStorage"));
+                    services.Configure<DbBackupJobSettings>(hostContext.Configuration.GetSection("DbBackupJob"));
                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>((hostContext, container) =>
