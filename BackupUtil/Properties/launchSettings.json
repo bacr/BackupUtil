@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BackupUtil": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

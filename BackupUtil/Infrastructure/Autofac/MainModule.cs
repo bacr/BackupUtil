@@ -1,14 +1,19 @@
 ﻿using Autofac;
+using BackupUtil.Db;
+using BackupUtil.Jobs;
 using Microsoft.Extensions.Hosting;
 
 namespace BackupUtil.Infrastructure.Autofac
 {
-    class WorkerModule : Module
+    class MainModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<MainWorker>().As<IHostedService>().SingleInstance();
             builder.RegisterType<CoreLogProvider>();
+
+            builder.RegisterType<DbBackupJob>();
+            builder.RegisterType<SqlBackup>().As<IDbBackup>();
         }
     }
 }

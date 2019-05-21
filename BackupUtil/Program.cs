@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using BackupUtil.Infrastructure;
+using BackupUtil.Db;
 
 namespace BackupUtil
 {
@@ -39,6 +40,7 @@ namespace BackupUtil
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddOptions();
+                    services.Configure<SqlBackupSettings>(hostContext.Configuration.GetSection("SqlBackup"));
                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>((hostContext, container) =>
