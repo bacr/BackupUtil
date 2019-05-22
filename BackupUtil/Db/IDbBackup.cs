@@ -7,7 +7,7 @@ namespace BackupUtil.Db
 {
     public interface IDbBackup
     {
-        Task<string> BackupAsync(BackupType type);
+        Task BackupAsync(BackupType type);
     }
 
     public enum BackupType

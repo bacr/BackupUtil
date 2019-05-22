@@ -22,10 +22,14 @@ namespace BackupUtil.Storage
             _logger = logger;
         }
 
-        public async Task BackupAsync(string filePath, string destinationPath)
+        public async Task BackupAsync(string sourcePath, string destinationPath)
         {
-            await Store(filePath, destinationPath);
-            File.Delete(filePath);
+            var files = Directory.GetFiles(sourcePath);
+            foreach (var file in files)
+            {
+                await Store(file, destinationPath);
+                File.Delete(file);
+            }            
         }
 
         private async Task Store(string filePath, string destinationPath)

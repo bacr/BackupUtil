@@ -28,9 +28,8 @@ namespace BackupUtil.Jobs
         public async Task Execute(IJobExecutionContext context)
         {
             var backupType = Enum.Parse<BackupType>(context.MergedJobDataMap.GetString("backupType"));
-            var filename = await _dbBackup.BackupAsync(backupType);
-            var backupPath = Path.Combine(_settings.Value.BackupPath, filename);
-            await _storage.BackupAsync(backupPath, _settings.Value.StoragePath);
+            await _dbBackup.BackupAsync(backupType);
+            await _storage.BackupAsync(_settings.Value.BackupPath, _settings.Value.StoragePath);
         }
     }
 }

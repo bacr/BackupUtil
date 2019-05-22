@@ -21,7 +21,7 @@ namespace BackupUtil.Db
             _logger = logger;
         }
 
-        public async Task<string> BackupAsync(BackupType type)
+        public async Task BackupAsync(BackupType type)
         {
             var extension = "bak";
             if (type == BackupType.TransactionLog)
@@ -45,7 +45,6 @@ namespace BackupUtil.Db
             _logger.LogInformation($"Backing up {_settings.Value.Database} with type {type}");
             await ExecuteAsync(sql, new SqlParameter("backupPath", backupPath), new SqlParameter("backupName", backupName));
             _logger.LogInformation($"Back up completed");
-            return filename;
         }
 
         private async Task<int> ExecuteAsync(string sql, params SqlParameter[] sqlParameters)
