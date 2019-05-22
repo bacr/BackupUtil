@@ -15,29 +15,10 @@ services:
       DbBackupJob__StoragePath: path/in/azure
       AzureStorage__ConnectionString: <ConnectionString>
       AzureStorage__Container: container-name
+      BackupSchedulerJob__Db__0__Type: Full
+      BackupSchedulerJob__Db__0__Cron: '0 0 0 * * ?'
+      BackupSchedulerJob__Db__1__Type: Differential
+      BackupSchedulerJob__Db__1__Cron: '0 0 1-23 * * ?'
       Logging__LogLevel__Default: 'Trace'
-    volumes:
-      - ./jobs.xml:/app/jobs.xml
 ```
-
-## Default Quarts jobs.xml
-
-Default trigger is set up to do Full back up every day at 0:00
-
-```xml
-    <trigger>
-      <cron>
-        <name>DbBackupTrigger</name>
-        <group>BackupUtil</group>
-        <job-name>DbBackupJob</job-name>
-        <job-group>BackupUtil</job-group>
-        <job-data-map>
-          <entry>
-            <key>backupType</key>
-            <value>Full</value>
-          </entry>
-        </job-data-map>
-        <cron-expression>0 0 0 * * ?</cron-expression>
-      </cron>
-    </trigger>
-```
+This configuration will do Full back up every day at 0:00 and Differential backup every hour except 0:00
