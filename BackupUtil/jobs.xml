@@ -6,26 +6,20 @@
   <schedule>
 
     <job>
-      <name>DbBackupJob</name>
-      <group>BackupUtil</group>
+      <name>BackupSchedulerJob</name>
+      <group>Main</group>
       <description></description>
-      <job-type>BackupUtil.Jobs.DbBackupJob, BackupUtil</job-type>      
+      <job-type>BackupUtil.Jobs.BackupSchedulerJob, BackupUtil</job-type>      
     </job>
 
     <trigger>
-      <cron>
-        <name>DbBackupTrigger</name>
-        <group>BackupUtil</group>
-        <job-name>DbBackupJob</job-name>
-        <job-group>BackupUtil</job-group>
-        <job-data-map>
-          <entry>
-            <key>backupType</key>
-            <value>Full</value>
-          </entry>
-        </job-data-map>
-        <cron-expression>0 0 0 * * ?</cron-expression>
-      </cron>
+      <simple>
+        <name>BackupSchedulerTrigger</name>
+        <group>Main</group>
+        <job-name>BackupSchedulerJob</job-name>
+        <job-group>Main</job-group>
+        <start-time-seconds-in-future>0</start-time-seconds-in-future>
+      </simple>
     </trigger>
 
   </schedule>

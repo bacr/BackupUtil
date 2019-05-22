@@ -14,6 +14,7 @@ namespace BackupUtil.Infrastructure.Autofac
             builder.RegisterType<CoreLogProvider>();
 
             builder.RegisterType<DbBackupJob>();
+            builder.RegisterType<BackupSchedulerJob>();
             builder.RegisterType<SqlBackup>().As<IDbBackup>();
             builder.RegisterType<AzureStorage>().As<IStorage>();
         }

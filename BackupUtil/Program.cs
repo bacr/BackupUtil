@@ -45,6 +45,7 @@ namespace BackupUtil
                     services.Configure<SqlBackupSettings>(hostContext.Configuration.GetSection("SqlBackup"));
                     services.Configure<AzureStorageSettings>(hostContext.Configuration.GetSection("AzureStorage"));
                     services.Configure<DbBackupJobSettings>(hostContext.Configuration.GetSection("DbBackupJob"));
+                    services.Configure<BackupSchedulerJobSettings>(hostContext.Configuration.GetSection("BackupSchedulerJob"));
                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureContainer<ContainerBuilder>((hostContext, container) =>
