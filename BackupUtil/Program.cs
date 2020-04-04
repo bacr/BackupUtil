@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
 using BackupUtil.Infrastructure;
 using BackupUtil.Db;
 using BackupUtil.Jobs;
@@ -19,7 +18,6 @@ namespace BackupUtil
     {
         public static async Task Main(string[] args)
         {
-            NLog.LogManager.LoadConfiguration("nlog.config");
             var builder = new HostBuilder()
                 .ConfigureHostConfiguration(configHost =>
                 {
@@ -55,12 +53,10 @@ namespace BackupUtil
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddNLog();
+                    logging.AddConsole();
                 });
 
             await builder.RunConsoleAsync();
-
-            NLog.LogManager.Shutdown();
         }
     }
 }
