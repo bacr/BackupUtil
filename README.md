@@ -1,6 +1,6 @@
 # BackupUtil
 
-BackupUtil allows to back up SQL Server database to Azure blob storage
+BackupUtil allows to back up SQL Server database to Azure blob (or AWS S3) storage
 
 ## Sample docker-compose file
 ```yaml
