@@ -5,10 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using BackupUtil.Infrastructure;
-using BackupUtil.Db;
-using BackupUtil.Jobs;
-using BackupUtil.Storage;
 
 namespace BackupUtil
 {

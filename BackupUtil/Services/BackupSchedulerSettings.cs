@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using BackupUtil.Db;
 
-namespace BackupUtil.Jobs
+namespace BackupUtil.Services
 {
-    public class BackupSchedulerJobSettings
+    public class BackupSchedulerSettings
     {
         public List<DbBackupItem> Db { get; set; }
     }

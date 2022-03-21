@@ -5,12 +5,13 @@ using System.Reflection;
 using System.Text;
 using AutoMapper;
 using BackupUtil.Db;
-using BackupUtil.Infrastructure;
 using BackupUtil.Jobs;
+using BackupUtil.Services;
 using BackupUtil.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quartz;
 
 namespace BackupUtil
 {
@@ -21,18 +22,23 @@ namespace BackupUtil
             var assemblies = GetAppAssemblies();
             services.AddSingleton<IMapper>(sp => new MapperConfiguration(cfg => { cfg.AddMaps(assemblies); }).CreateMapper());
 
-            services.AddSingleton<IHostedService, MainWorker>();
-            services.AddTransient<CoreLogProvider>();
+            services.AddQuartz(q =>
+            {
+                q.UseMicrosoftDependencyInjectionScopedJobFactory();
+            });
+            services.AddQuartzHostedService(
+                q => q.WaitForJobsToComplete = true);
+
+            services.AddHostedService<BackupSchedulerService>();
 
             services.AddTransient<DbBackupJob>();
-            services.AddTransient<BackupSchedulerJob>();
             services.AddTransient<IDbBackup, SqlBackup>();
             services.AddTransient<IStorage, AzureStorage>();
 
             services.Configure<SqlBackupSettings>(configuration.GetSection("SqlBackup"));
             services.Configure<AzureStorageSettings>(configuration.GetSection("AzureStorage"));
             services.Configure<DbBackupJobSettings>(configuration.GetSection("DbBackupJob"));
-            services.Configure<BackupSchedulerJobSettings>(configuration.GetSection("BackupSchedulerJob"));
+            services.Configure<BackupSchedulerSettings>(configuration.GetSection("BackupSchedulerJob"));
 
             return services;
         }
