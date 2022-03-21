@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using AutoMapper;
 using BackupUtil.Db;
+using BackupUtil.Infrastructure;
 using BackupUtil.Jobs;
 using BackupUtil.Services;
 using BackupUtil.Storage;
@@ -21,6 +22,7 @@ namespace BackupUtil
         {
             var assemblies = GetAppAssemblies();
             services.AddSingleton<IMapper>(sp => new MapperConfiguration(cfg => { cfg.AddMaps(assemblies); }).CreateMapper());
+            services.AddFromConfiguration(configuration, assemblies);
 
             services.AddQuartz(q =>
             {
@@ -32,11 +34,10 @@ namespace BackupUtil
             services.AddHostedService<BackupSchedulerService>();
 
             services.AddTransient<DbBackupJob>();
-            services.AddTransient<IDbBackup, SqlBackup>();
-            services.AddTransient<IStorage, AzureStorage>();
 
             services.Configure<SqlBackupSettings>(configuration.GetSection("SqlBackup"));
             services.Configure<AzureStorageSettings>(configuration.GetSection("AzureStorage"));
+            services.Configure<AWSS3StorageSettings>(configuration.GetSection("AWSS3Storage"));
             services.Configure<DbBackupJobSettings>(configuration.GetSection("DbBackupJob"));
             services.Configure<BackupSchedulerSettings>(configuration.GetSection("BackupSchedulerJob"));
 
