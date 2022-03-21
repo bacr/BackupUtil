@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Quartz.Impl;
@@ -13,12 +12,11 @@ namespace BackupUtil
     {
         private readonly IScheduler _scheduler;
 
-        public MainWorker(ILifetimeScope lifetimeScope, CoreLogProvider coreLogProvider)
+        public MainWorker(CoreLogProvider coreLogProvider)
         {
             LogProvider.SetCurrentLogProvider(coreLogProvider);
             var schedulerFactory = new StdSchedulerFactory();
             _scheduler = schedulerFactory.GetScheduler().Result;
-            _scheduler.JobFactory = new AutofacJobFactory(lifetimeScope);
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)

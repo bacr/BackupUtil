@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,15 +38,8 @@ namespace BackupUtil
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddOptions();
-                    services.Configure<SqlBackupSettings>(hostContext.Configuration.GetSection("SqlBackup"));
-                    services.Configure<AzureStorageSettings>(hostContext.Configuration.GetSection("AzureStorage"));
-                    services.Configure<DbBackupJobSettings>(hostContext.Configuration.GetSection("DbBackupJob"));
-                    services.Configure<BackupSchedulerJobSettings>(hostContext.Configuration.GetSection("BackupSchedulerJob"));
-                })
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureContainer<ContainerBuilder>((hostContext, container) =>
-                {
-                    AutofacConfig.ConfigureAutofac(container, hostContext.Configuration);
+
+                    services.AddBackupUtil(hostContext.Configuration);                    
                 })
                 .ConfigureLogging((hostingContext, logging) =>
                 {
