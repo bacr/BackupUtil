@@ -11,6 +11,8 @@ namespace BackupUtil.Db
         private readonly IOptions<SqlBackupSettings> _settings;
         private readonly ILogger<SqlBackup> _logger;
 
+        private const int CommandTimeout = 600;
+
         public SqlBackup(IOptions<SqlBackupSettings> settings,
             ILogger<SqlBackup> logger)
         {
@@ -61,6 +63,7 @@ namespace BackupUtil.Db
                 await connection.OpenAsync();
                 using (var command = new SqlCommand(sql, connection))
                 {
+                    command.CommandTimeout = CommandTimeout;
                     command.Parameters.AddRange(sqlParameters);
                     return await command.ExecuteNonQueryAsync();
                 }
