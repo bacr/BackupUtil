@@ -8,5 +8,6 @@ namespace BackupUtil.Jobs
     {
         public string BackupPath { get; set; }
         public string StoragePath { get; set; }
+        public bool Archive { get; set; }
     }
 }
