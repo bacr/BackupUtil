@@ -30,17 +30,7 @@ namespace BackupUtil.Storage
             });
         }
 
-        public async Task BackupAsync(string sourcePath, string destinationPath)
-        {
-            var files = Directory.GetFiles(sourcePath);
-            foreach (var file in files)
-            {
-                await Store(file, destinationPath);
-                File.Delete(file);
-            }
-        }
-
-        private async Task Store(string filePath, string destinationPath)
+        public async Task Store(string filePath, string destinationPath)
         {
             var filename = Path.GetFileName(filePath);
             var destinationFile = $"{destinationPath}/{filename}";

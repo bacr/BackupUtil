@@ -29,7 +29,17 @@ namespace BackupUtil.Jobs
         {
             var backupType = Enum.Parse<BackupType>(context.MergedJobDataMap.GetString("backupType"));
             await _dbBackup.BackupAsync(backupType);
-            await _storage.BackupAsync(_settings.Value.BackupPath, _settings.Value.StoragePath);
+            await BackupAsync(_settings.Value.BackupPath, _settings.Value.StoragePath);
+        }
+
+        private async Task BackupAsync(string sourcePath, string destinationPath)
+        {
+            var files = Directory.GetFiles(sourcePath);
+            foreach (var file in files)
+            {
+                await _storage.Store(file, destinationPath);
+                File.Delete(file);
+            }
         }
     }
 }

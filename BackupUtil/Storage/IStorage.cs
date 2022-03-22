@@ -8,6 +8,6 @@ namespace BackupUtil.Storage
 {
     public interface IStorage
     {
-        Task BackupAsync(string sourcePath, string destinationPath);
+        Task Store(string filePath, string destinationPath);
     }
 }
