@@ -11,7 +11,7 @@ namespace BackupUtil.Db
         private readonly IOptions<SqlBackupSettings> _settings;
         private readonly ILogger<SqlBackup> _logger;
 
-        private const int CommandTimeout = 600;
+        private const int CommandTimeout = 1800;
 
         public SqlBackup(IOptions<SqlBackupSettings> settings,
             ILogger<SqlBackup> logger)
