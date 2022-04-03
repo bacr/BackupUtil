@@ -4,4 +4,4 @@
 **/bin/
 **/obj/
 **/out/
-appsettings.local.json
+**/appsettings.local.json
