@@ -34,9 +34,27 @@ namespace BackupUtil.Jobs
 
         public async Task Execute(IJobExecutionContext context)
         {
-            var backupType = Enum.Parse<BackupType>(context.MergedJobDataMap.GetString("backupType"));
+            var backupType = GetBackupType(context.MergedJobDataMap);
             await _dbBackup.BackupAsync(backupType);
+            if (string.IsNullOrEmpty(_settings.Value.BackupPath))
+            {
+                throw new Exception("BackupPath is not specified");
+            }
+            if (string.IsNullOrEmpty(_settings.Value.StoragePath))
+            {
+                throw new Exception("StoragePath is not specified");
+            }
             await BackupAsync(_settings.Value.BackupPath, _settings.Value.StoragePath);
+        }
+
+        private BackupType GetBackupType(JobDataMap jobDataMap)
+        {
+            var backupType = jobDataMap.GetString("backupType");
+            if (backupType == null)
+            {
+                throw new Exception("Value backupType not found");
+            }
+            return Enum.Parse<BackupType>(backupType);
         }
 
         private async Task BackupAsync(string sourcePath, string destinationPath)

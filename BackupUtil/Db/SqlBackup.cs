@@ -24,9 +24,10 @@ namespace BackupUtil.Db
         {
             var databases = _settings.Value.GetDatabases(); 
 
-            if (databases == null)
+            if (databases == null || databases.Length == 0)
             {
-                _logger.LogInformation($"No databases set up");
+                _logger.LogInformation("No databases set up");
+                return;
             }
 
             foreach (var database in databases)
@@ -50,9 +51,9 @@ namespace BackupUtil.Db
                     diff = "DIFFERENTIAL, ";
                 }
                 var sql = $"BACKUP {backupType} [{database}] TO DISK = @backupPath WITH {diff}NOFORMAT, NOINIT, NAME = @backupName, SKIP, NOREWIND, NOUNLOAD, STATS = 10";
-                _logger.LogInformation($"Backing up {database} with type {type}");
+                _logger.LogInformation("Backing up {Database} with type {Type}", database, type);
                 await ExecuteAsync(sql, new SqlParameter("backupPath", backupPath), new SqlParameter("backupName", backupName));
-                _logger.LogInformation($"Back up completed");
+                _logger.LogInformation("Back up completed");
             }            
         }
 

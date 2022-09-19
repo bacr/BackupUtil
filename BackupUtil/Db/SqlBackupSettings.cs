@@ -6,12 +6,12 @@ namespace BackupUtil.Db
 {
     public class SqlBackupSettings
     {
-        public string ConnectionString { get; set; }
-        public string Database { get; set; }
-        public string[] Databases { get; set; }
-        public string BackupPath { get; set; }
+        public string? ConnectionString { get; set; }
+        public string? Database { get; set; }
+        public string[]? Databases { get; set; }
+        public string? BackupPath { get; set; }
 
-        public string[] GetDatabases()
+        public string[]? GetDatabases()
         {
             if (Databases != null)
             {

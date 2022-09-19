@@ -7,12 +7,12 @@ namespace BackupUtil.Services
 {
     public class BackupSchedulerSettings
     {
-        public List<DbBackupItem> Db { get; set; }
+        public List<DbBackupItem>? Db { get; set; }
     }
 
     public class DbBackupItem
     {
         public BackupType Type { get; set; }
-        public string Cron { get; set; }
+        public string? Cron { get; set; }
     }
 }

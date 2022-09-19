@@ -48,7 +48,7 @@ namespace BackupUtil
         {
             var appNames = new[] { "BackupUtil" };
             return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => appNames.Any(n => a.FullName.Contains(n)) ||
+                .Where(a => appNames.Any(n => a.FullName!.Contains(n)) ||
                             a.GetReferencedAssemblies()
                                 .Any(ra => appNames.Any(n => ra.FullName.Contains(n))))
                 .ToArray();

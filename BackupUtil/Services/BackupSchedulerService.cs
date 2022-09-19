@@ -28,10 +28,21 @@ namespace BackupUtil.Services
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
+            if (_backupSchedulerSettings.Value.Db == null)
+            {
+                _logger.LogInformation("No backups setup");
+                return;
+            }
+
             var scheduler = await _schedulerFactory.GetScheduler();
 
             foreach (var db in _backupSchedulerSettings.Value.Db)
             {
+                if (string.IsNullOrEmpty(db.Cron))
+                {
+                    _logger.LogInformation("No cron is specified for {Type} backup", db.Type);
+                    continue;
+                }
                 _logger.LogInformation("Schedule {Type} backup at {Cron}", db.Type, db.Cron);
                 var job = JobBuilder.Create<DbBackupJob>()
                     .Build();
