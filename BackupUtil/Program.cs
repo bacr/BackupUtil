@@ -40,7 +40,7 @@ namespace BackupUtil
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole(c =>
+                    logging.AddSimpleConsole(c =>
                     {
                         c.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ";
                     });
