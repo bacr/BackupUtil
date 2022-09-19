@@ -26,7 +26,7 @@ namespace BackupUtil
 
             services.AddQuartz(q =>
             {
-                q.UseMicrosoftDependencyInjectionScopedJobFactory();
+                q.UseMicrosoftDependencyInjectionJobFactory();
             });
             services.AddQuartzHostedService(
                 q => q.WaitForJobsToComplete = true);
