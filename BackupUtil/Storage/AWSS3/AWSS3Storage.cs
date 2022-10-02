@@ -41,7 +41,7 @@ namespace BackupUtil.Storage
                 Key = destinationFile,
                 FilePath = filePath,
             };
-            _logger.LogInformation($"Uploading {filePath} to AWS S3");
+            _logger.LogInformation("Uploading {FilePath} to AWS S3", filePath);
             await client.PutObjectAsync(request);
             _logger.LogInformation("Upload complete");
         }

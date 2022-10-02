@@ -10,6 +10,7 @@ using BackupUtil.Infrastructure;
 using BackupUtil.Jobs;
 using BackupUtil.Services;
 using BackupUtil.Storage;
+using BackupUtil.Storage.FTP;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,6 +43,7 @@ namespace BackupUtil
             services.Configure<DbBackupJobSettings>(configuration.GetSection("DbBackupJob"));
             services.Configure<BackupSchedulerSettings>(configuration.GetSection("BackupSchedulerJob"));
             services.Configure<PostgresBackupSettings>(configuration.GetSection("PostgresBackup"));
+            services.Configure<FTPStorageSettings>(configuration.GetSection("FTPStorage"));
 
             return services;
         }
