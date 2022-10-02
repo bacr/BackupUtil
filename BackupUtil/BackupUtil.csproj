@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.7.8.8" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.8.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.13.0" />
     <PackageReference Include="FluentFTP" Version="41.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
