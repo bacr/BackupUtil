@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using AutoMapper;
 using BackupUtil.Db;
+using BackupUtil.Db.Postgres;
 using BackupUtil.Infrastructure;
 using BackupUtil.Jobs;
 using BackupUtil.Services;
@@ -40,6 +41,7 @@ namespace BackupUtil
             services.Configure<AWSS3StorageSettings>(configuration.GetSection("AWSS3Storage"));
             services.Configure<DbBackupJobSettings>(configuration.GetSection("DbBackupJob"));
             services.Configure<BackupSchedulerSettings>(configuration.GetSection("BackupSchedulerJob"));
+            services.Configure<PostgresBackupSettings>(configuration.GetSection("PostgresBackup"));
 
             return services;
         }
